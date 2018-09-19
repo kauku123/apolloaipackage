@@ -1,0 +1,119 @@
+(1) Linux Installation Process -- without docker:
+
+Check if pip is updated. -- pip install --upgrade pip
+
+Check if Git is present.
+
+git clone "https://github.com/kauku123/apolloaipackage"
+
+Using "pip install -r requirements.txt" install required libraries for executing the models.
+
+This package mostly contains IPython notebooks (jupyter). So as to obtain executable python (.py) files of these notebooks, clone into the directory and run:
+"jupyter nbconvert --to script [YOUR_NOTEBOOK].ipynb"
+
+For the local datasets, only nearestneighbor.ipynb requires a dataset from theinternet. 
+So added an import statement from sklearn for accessing this dataset locally.
+
+Run the model: python model.py ------>debug mode; python model.py --debug.
+
+
+(2) Windows Installation Process -- without docker
+
+
+For windows, Tensorflow is supported only for Python3.x. Checkif Python on the machine is updated. Else, update:
+Installations can be found here: https://www.python.org/downloads/
+
+Check if pip is updated. -- pip install --upgrade pip
+
+Check if Git is present.
+
+git clone "https://github.com/kauku123/apolloaipackage"
+
+Using "pip install -r requirements.txt" install required libraries for executing the models.
+
+This package mostly contains IPython notebooks (jupyter). So as to obtain executable python (.py) files of these notebooks, clone into the directory and run:
+"jupyter nbconvert --to script [YOUR_NOTEBOOK].ipynb"
+
+For the local datasets, only nearestneighbor.ipynb requires a dataset from theinternet. 
+So added an import statement from sklearn for accessing this dataset locally.
+
+Run the model: python model.py ------>debug mode; python model.py --debug.
+
+
+(3) Linux Installation Process -- with virtualenv:
+
+Check if pip is updated. -- pip install --upgrade pip
+
+Install virtualenv.
+
+pip install --user virtualenv
+
+Check if Git is present.
+
+git clone "https://github.com/kauku123/apolloaipackage"
+
+Using "pip install -r requirements.txt" install required libraries for executing the models.
+
+This package mostly contains IPython notebooks (jupyter). So as to obtain executable python (.py) files of these notebooks, clone into the directory and run:
+"jupyter nbconvert --to script [YOUR_NOTEBOOK].ipynb"
+
+For the local datasets, only nearestneighbor.ipynb requires a dataset from theinternet. 
+So added an import statement from sklearn for accessing this dataset locally.
+
+Run the model: python model.py ------>debug mode; python model.py --debug.
+
+
+(4) Windows Installation Process
+
+For windows, Tensorflow is supported only for Python3.x. Checkif Python on the machine is updated. Else, update:
+Installations can be found here: https://www.python.org/downloads/
+
+Check if pip is updated. -- pip install --upgrade pip
+
+Install virtualenv.
+
+py -m pip install --user virtualenv
+
+Check if Git is present.
+
+git clone "https://github.com/kauku123/apolloaipackage"
+
+Using "pip install -r requirements.txt" install required libraries for executing the models.
+
+This package mostly contains IPython notebooks (jupyter). So as to obtain executable python (.py) files of these notebooks, clone into the directory and run:
+"jupyter nbconvert --to script [YOUR_NOTEBOOK].ipynb"
+
+For the local datasets, only nearestneighbor.ipynb requires a dataset from theinternet. 
+So added an import statement from sklearn for accessing this dataset locally.
+
+Run the model: python model.py ------>debug mode; python model.py --debug.
+
+
+(5) Linux Installation Process - with Docker
+
+
+Install Docker from ---> https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+Pull Docker from: docker pullInstall docker from sssk/apolloaipackage
+
+Run it on local machine using ---> docker run " repository name  "
+
+Access the returned URL from the localhost and edit the Ipy notebooks.
+
+Also automated build from GitHub is active. So, one can easily access the git rep also.
+
+Check if Git is present.
+
+git clone "https://github.com/kauku123/apolloaipackage"
+
+Using "pip install -r requirements.txt" install required libraries for executing the models.
+
+This package mostly contains IPython notebooks (jupyter). So as to obtain executable python (.py) files of these notebooks, clone into the directory and run:
+"jupyter nbconvert --to script [YOUR_NOTEBOOK].ipynb"
+
+For the local datasets, only nearestneighbor.ipynb requires a dataset from theinternet. 
+So added an import statement from sklearn for accessing this dataset locally.
+
+Run the model: python model.py ------>debug mode; python model.py --debug.
+
+
