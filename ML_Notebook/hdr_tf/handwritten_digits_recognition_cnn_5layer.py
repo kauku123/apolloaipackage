@@ -14,6 +14,7 @@ Project: https://github.com/aymericdamien/TensorFlow-Examples/
 from __future__ import print_function
 
 import tensorflow as tf
+from tensorflow.python import debug as tf_debug
 
 # Import MNIST data
 from tensorflow.examples.tutorials.mnist import input_data
@@ -21,7 +22,7 @@ mnist = input_data.read_data_sets('model_data/', one_hot=True)
 print ("HI")
 # Parameters
 learning_rate = 0.001
-training_iters = 10000
+training_iters = 50000
 batch_size = 128
 display_step = 10
 
@@ -101,17 +102,26 @@ biases = {
     'out': tf.Variable(tf.random_normal([n_classes]))
 }
 
+wt1 = weights['wc1']
+wt2 = weights['wc2']
+wd1 = weights['wd1']
+
 # Construct model
 pred = conv_net(x, weights, biases, keep_prob)
-
+tf.summary.histogram("W1",wt1 )
+tf.summary.histogram("W1",wt2 )
+tf.summary.histogram("W1",wd1 )
 # Define loss and optimizer
-cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
-
+with tf.name_scope("cost"):
+    cost = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=pred, labels=y))
+    optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate).minimize(cost)
+    tf.summary.scalar("cost",cost)
 # Evaluate model
-correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))*100
+with tf.name_scope("accuracy"):
 
+    correct_pred = tf.equal(tf.argmax(pred, 1), tf.argmax(y, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))*100
+    tf.summary.scalar("accuracy",accuracy)
 # Initializing the variables
 init = tf.global_variables_initializer()
 
@@ -119,20 +129,23 @@ init = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init)
     step = 1
+    writer = tf.summary.FileWriter("./logs/cnn_logs1", sess.graph) # for 0.8
+    merged = tf.summary.merge_all()
     # Keep training until reach max iterations
     while step * batch_size < training_iters:
         batch_x, batch_y = mnist.train.next_batch(batch_size)
         # Run optimization op (backprop)
         sess.run(optimizer, feed_dict={x: batch_x, y: batch_y,
                                        keep_prob: dropout})
-        if step % display_step == 0:
+        #if step % display_step == 0:
             # Calculate batch loss and accuracy
-            loss, acc = sess.run([cost, accuracy], feed_dict={x: batch_x,
-                                                              y: batch_y,
-                                                              keep_prob: 1.})
-            print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
-                  "{:.6f}".format(loss) + ", Training Accuracy= " + \
-                  "{:.5f} %".format(acc))
+        s, loss, acc = sess.run([merged,cost, accuracy], feed_dict={x: batch_x,
+                                                          y: batch_y,
+                                                          keep_prob: 1.})
+        print("Iter " + str(step*batch_size) + ", Minibatch Loss= " + \
+              "{:.6f}".format(loss) + ", Training Accuracy= " + \
+              "{:.5f} %".format(acc))
+        writer.add_summary(s, step)
         step += 1
     print("Optimization Finished!")
 
@@ -141,6 +154,3 @@ with tf.Session() as sess:
         sess.run(accuracy, feed_dict={x: mnist.test.images[:256],
                                       y: mnist.test.labels[:256],
                                       keep_prob: 1.}))
-
-
-
